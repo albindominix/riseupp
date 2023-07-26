@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import SearchField from "./components/SearchField";
 import ReactPaginate from "react-paginate";
+import spinner from "./assets/Eclipse-1s-200px (2).svg";
 
 function App() {
   const [res, setRes] = useState([]);
   const [img, setImg] = useState("");
   const [totalPages, setTotalPages] = useState(0);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     fetchRequest();
   }, [img]);
@@ -37,27 +39,36 @@ function App() {
 
   return (
     <div className="App">
-      <SearchField setImg={setImg} />
-      <div className="images">
-        {res.map((images) => (
-          <div className="image-div">
-            <img
-              className="image"
-              id={images.id}
-              src={images.urls.small}
-              alt={images.alt_description}
-            />
-            <div className="detail">
-              <h3>{images.alt_description}</h3>
-              <div className="hashtags">
-                {images.tags.map((tag) => (
-                  <h5># {tag.title}</h5>
-                ))}
+      <SearchField setImg={setImg} submit={fetchRequest} />
+      {loading ? (
+        <div className="loader">
+          <img src={spinner} alt="loader svg" />
+        </div>
+      ) : (
+        <div>
+          <div className="result">See results for {img}</div>
+          <div className="images">
+            {res.map((images) => (
+              <div className="image-div">
+                <img
+                  className="image"
+                  id={images.id}
+                  src={images.urls.small}
+                  alt={images.alt_description}
+                />
+                <div className="detail">
+                  <h3>{images.alt_description}</h3>
+                  <div className="hashtags">
+                    {images.tags.map((tag) => (
+                      <h5># {tag.title}</h5>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      )}
       <ReactPaginate
         previousLabel="<"
         breakLabel="..."
