@@ -1,11 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel&family=Fauna+One&family=Poppins:wght@300;400;500;700&family=Roboto:wght@300;400&family=Space+Grotesk:wght@500;600&display=swap");
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Roboto", sans-serif;
-}
 .App {
   text-align: center;
 }
@@ -24,7 +18,7 @@
 .images {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(311px, 1fr));
-  grid-gap: var(--default-spacing);
+  grid-gap: 10px;
   justify-content: center;
   align-items: center;
   margin: 1rem;
