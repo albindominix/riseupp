@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import SearchField from "./components/SearchField";
 
-
 function App() {
   const [res, setRes] = useState([]);
   const [img, setImg] = useState("");
@@ -12,9 +11,7 @@ function App() {
     fetchRequest();
   }, [img]);
 
-
   const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
-
 
   const fetchRequest = async (currentPage = 1) => {
     try {
@@ -32,25 +29,31 @@ function App() {
     }
   };
 
-
-  
-
-  return (<div className="App">
-       
+  return (
+    <div className="App">
       <SearchField setImg={setImg} />
-  <div className="images">
-            {res.map((images) => (
-              <div className="image-div">
-                <img
-                  className="image"
-                  id={images.id}
-                  src={images.urls.small}
-                  alt={images.alt_description}
-                />
+      <div className="images">
+        {res.map((images) => (
+          <div className="image-div">
+            <img
+              className="image"
+              id={images.id}
+              src={images.urls.small}
+              alt={images.alt_description}
+            />
+            <div className="detail">
+              <h3>{images.alt_description}</h3>
+              <div className="hashtags">
+                {images.tags.map((tag) => (
+                  <h5># {tag.title}</h5>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-  </div>);
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default App;
