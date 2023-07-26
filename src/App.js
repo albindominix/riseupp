@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import SearchField from "./components/SearchField";
+import ReactPaginate from "react-paginate";
 
 function App() {
   const [res, setRes] = useState([]);
@@ -52,6 +53,21 @@ function App() {
           </div>
         ))}
       </div>
+      <ReactPaginate
+        previousLabel="<"
+        breakLabel="..."
+        nextLabel=">"
+        pageRangeDisplayed={3}
+        pageCount={totalPages}
+        marginPagesDisplayed={1}
+        containerClassName="paginate-wrapper"
+        pageClassName="pagination-button"
+        activeClassName="pagination-button-active"
+        previousClassName="skip-button-active"
+        nextClassName="skip-button-active"
+        disabledClassName="skip-button-disable"
+        breakClassName="breakLabel"
+      />
     </div>
   );
 }
