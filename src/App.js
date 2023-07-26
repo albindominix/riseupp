@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import SearchField from "./components/SearchField";
-import ReactPaginate from "react-paginate";
-import spinner from "./assets/Eclipse-1s-200px (2).svg";
+
 
 function App() {
   const [res, setRes] = useState([]);
   const [img, setImg] = useState("");
-  
+
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     fetchRequest();
@@ -36,8 +35,22 @@ function App() {
 
   
 
-  return (<>
-  </>);
+  return (<div className="App">
+       
+      <SearchField setImg={setImg} />
+  <div className="images">
+            {res.map((images) => (
+              <div className="image-div">
+                <img
+                  className="image"
+                  id={images.id}
+                  src={images.urls.small}
+                  alt={images.alt_description}
+                />
+              </div>
+            ))}
+          </div>
+  </div>);
 }
 
 export default App;
