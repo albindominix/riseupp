@@ -6,8 +6,7 @@ import ReactPaginate from "react-paginate";
 function App() {
   const [res, setRes] = useState([]);
   const [img, setImg] = useState("");
-
-  const [loading, setLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
   useEffect(() => {
     fetchRequest();
   }, [img]);
@@ -23,12 +22,18 @@ function App() {
       const dataJ = await data.json();
       const result = dataJ.results;
       setRes(result);
+      setTotalPages(dataJ.total_pages);
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
     }
   };
+
+  function handlePageClick(data) {
+    let currentPage = data.selected + 1;
+    fetchRequest(currentPage);
+  }
 
   return (
     <div className="App">
@@ -57,6 +62,7 @@ function App() {
         previousLabel="<"
         breakLabel="..."
         nextLabel=">"
+        onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         pageCount={totalPages}
         marginPagesDisplayed={1}
